@@ -1,26 +1,41 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import Character from "../component/card";
+import { Navbar } from "../component/navbar";
 
-export const Single = props => {
-	const { store, actions } = useContext(Context);
-	const params = useParams();
+export const Single = () => {
+
+	const {store, actions} = useContext(Context)
+	console.log(store)
+
+	useEffect(()=> {
+		actions.loadPeople();
+		actions.loadPlanets();
+		actions.loadVehicles();
+	}, [])
+
 	return (
-		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {store.demo[params.theid].title}</h1>
-
-			<hr className="my-4" />
-
-			<Link to="/">
-				<span className="btn btn-primary btn-lg" href="#" role="button">
-					Back home
-				</span>
-			</Link>
+		<div className="text-center bg-dark text-white">
+			{/* <Navbar/> */}
+			<h1>Star Wars API 💫</h1>
+			<div className="d-flex flex-wrap bg-dark text-white">
+				{
+					store.characters.length > 0 &&
+					store.characters.map((people) => <Character item={people} key={people.uid} naturate="characters" />)
+				}
+			</div>
+			<div className="d-flex flex-wrap">
+				{
+					store.planets.length > 0 &&
+					store.planets.map((planets) => <Character item={planets} key={planets.uid} naturate="planets" />)
+				}
+			</div>
+			<div className="d-flex flex-wrap">
+				{
+					store.vehicles.length > 0 &&
+					store.vehicles.map((vehicles) => <Character item={vehicles} key={vehicles.uid} naturate="vehicles" />)
+				}
+			</div>
 		</div>
-	);
-};
-
-Single.propTypes = {
-	match: PropTypes.object
+	)
 };

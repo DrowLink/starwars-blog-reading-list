@@ -1,25 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/home.css";
+import Favorite from "./favorite";
 
 export const Navbar = () => {
 	return (
-		<nav   className="navbar navbar-dark bg-dark mb-3 p-3">
+		<div>
+		<nav className="navbar navbar-dark bg-dark ">
 			<Link to="/">
-				<span className="navbar-brand mb-0 h1">Star Wars 🧑‍🚀⭐</span>
+				<img style={{marginLeft: "50px"}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" width="90" height="70" ms-1 p-0 alt="Star wars image"></img>			
 			</Link>
-			<div className="ml-auto">
-				<div className="dropdown">
-					<button  className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Favorites
-					</button>
-					{ <ul id="nav-body" className="dropdown-menu">
-						<li><a className="dropdown-item" href="#">Action</a></li>
-						<li><a className="dropdown-item" href="#">Another action</a></li>
-						<li><a className="dropdown-item" href="#">Something else here</a></li>
-					</ul> }
-				</div>
-			</div>
+			<Favorite/>
 		</nav>
+		</div>
 	);
 };

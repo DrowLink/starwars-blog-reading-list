@@ -1,25 +1,44 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
+import Character from "../component/card";
+import { Navbar } from "../component/navbar";
 
-export const Home = () => (
-	<div id="container-main" className="text-center mt-5">
-		<div className="container">
-			<div className="planets-container">
-				
-					<div className="card" style="width: 18rem;">
-						<img src="..." className="card-img-top" alt="..."/>
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-							<a href="#" className="btn btn-primary">Go somewhere</a>
-						</div>
-				  </div>
-				
+export const Home = () => {
+
+	const {store, actions} = useContext(Context)
+	console.log(store)
+
+	useEffect(()=> {
+		actions.loadPeople();
+		actions.loadPlanets();
+		actions.loadVehicles();
+	}, [])
+
+	return (
+		<div className="text-center bg-dark text-white">
+			<h1>Star Wars 🧑‍🚀</h1>
+			<h2 className="my-5">Characters</h2>
+			<div className="d-flex bg-dark flex-wrap  text-white">
+				{
+					store.characters.length > 0 &&
+					store.characters.map((people) => <Character item={people} key={people.uid} naturate="characters" />)
+				}
 			</div>
-			<div className="characters-container">
-				
+			<h2 className="my-5">Planets</h2>
+			<div className="d-flex flex-wrap">
+				{
+					store.planets.length > 0 &&
+					store.planets.map((planets) => <Character item={planets} key={planets.uid} naturate="planets" />)
+				}
+			</div>
+			<h2 className="my-5">Vehicles</h2>
+			<div className="d-flex flex-wrap">
+				{
+					store.vehicles.length > 0 &&
+					store.vehicles.map((vehicles) => <Character item={vehicles} key={vehicles.uid} naturate="vehicles" />)
+				}
 			</div>
 		</div>
-	</div>
-);
+	)
+};
+
